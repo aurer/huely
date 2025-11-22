@@ -1,16 +1,16 @@
 import { uuid } from './Utilities'
-import { gradientFrom, lighten, darken } from './ColorBlend'
-import { ColorObject } from '../components/ColorContext'
+import { gradientFrom, lighten, darken } from './colorBlend'
+import { type ColorDefinition } from './color'
 
-class ColorSet {
+class colorSet {
 	id: string
 	name: string
 	baseColor: string
 	contrastValue: number
-	colors: Array<ColorObject>
+	colors: Array<ColorDefinition>
 
 	constructor(name: string, baseColor: string = '344449', contrastValue: number = 3) {
-		let colorValues = gradientFrom(baseColor, 2 + contrastValue, 5).asHex()
+		const colorValues = gradientFrom(baseColor, 2 + contrastValue, 5).asHex()
 		this.id = uuid()
 		this.name = name
 		this.baseColor = baseColor
@@ -26,7 +26,7 @@ class ColorSet {
 	}
 
 	updateColor(suffix: string, value: string, auto: boolean) {
-		let updatedColors = this.colors.map((color) => {
+		const updatedColors = this.colors.map((color) => {
 			if (color.suffix === suffix) {
 				color.value = value
 				color.auto = auto
@@ -43,11 +43,11 @@ class ColorSet {
 
 	updateColors() {
 		const setColors = gradientFrom(this.baseColor, 2 + this.contrastValue, 5).asHex()
-		let updatedColors = this.colors.map(
-			(color, i): ColorObject => {
+		const updatedColors = this.colors.map(
+			(color, i): ColorDefinition => {
 				if (color.auto) {
-					let prev = this.colors[i - 1]
-					let next = this.colors[i + 1]
+					const prev = this.colors[i - 1]
+					const next = this.colors[i + 1]
 
 					// First
 					if (!prev && !next.auto) {
@@ -69,4 +69,4 @@ class ColorSet {
 	}
 }
 
-export default ColorSet
+export default colorSet

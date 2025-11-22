@@ -14,11 +14,11 @@ export default class NumberFill {
 			array[array.length - 1] = array.length - 1
 		}
 
-		let output: number[] = []
+		const output: number[] = []
 		array.forEach((element: number | null, index: number) => {
 			if (element === null) {
-				let prev: number = output[index - 1]
-				let seek: FoundNumber = this.getNextNonNullValue(array, index)
+				const prev: number = output[index - 1]
+				const seek: FoundNumber = this.getNextNonNullValue(array, index)
 				element = prev + this.intervalBetween(prev, seek.value, seek.skipped)
 			}
 			output[index] = element
@@ -45,17 +45,17 @@ export default class NumberFill {
 	}
 
 	static numbersBetween(start: number, end: number, steps: number) {
-		let values: number[] = []
-		let interval: number = this.intervalBetween(start, end, steps)
+		const values: number[] = []
+		const interval: number = this.intervalBetween(start, end, steps)
 		for (let i = 0; i < steps; i++) {
-			let newValue: number = start + interval + interval * i
+			const newValue: number = start + interval + interval * i
 			values.push(newValue)
 		}
 		return values
 	}
 
 	static numbersBetweenInclusive(start: number, end: number, steps: number) {
-		let values: number[] = this.numbersBetween(start, end, steps)
+		const values: number[] = this.numbersBetween(start, end, steps)
 		values.unshift(start)
 		values.push(end)
 		return values

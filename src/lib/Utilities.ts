@@ -1,6 +1,6 @@
 export const uuid = function (): string {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-		var r = (Math.random() * 16) | 0,
+		const r = (Math.random() * 16) | 0,
 			v = c === 'x' ? r : (r & 0x3) | 0x8
 		return v.toString(16)
 	})
@@ -42,4 +42,8 @@ export const cleanHex = function (hex: string): string {
 	}
 
 	return hex.toUpperCase()
+}
+
+export const sanitiseHexColor = (color: string) => {
+	return color.replace('#', '').slice(0, 6)
 }

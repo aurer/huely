@@ -1,4 +1,4 @@
-import Color from '../lib/Color'
+import Color from '~/lib/color'
 
 const tests = [
 	{ hexIn: '#aaa', hexOut: 'AAAAAA', rgb: [170, 170, 170], hsl: [0, 0, 67] },
@@ -11,40 +11,40 @@ const tests = [
 ]
 
 it('can convert HEX to HEX', () => {
-	tests.forEach((color) => {
-		expect(Color.fromHex(color.hexIn).toHex()).toBe(color.hexOut)
+	tests.forEach((c) => {
+		expect(Color.fromHex(c.hexIn).toHex()).toBe(c.hexOut)
 	})
 })
 
 it('can convert RGB to HEX', () => {
-	tests.forEach((color) => {
-		let [r, g, b] = color.rgb
-		expect(Color.fromRGB(r, g, b).toHex()).toBe(color.hexOut)
+	tests.forEach((c) => {
+		const [r, g, b] = c.rgb
+		expect(Color.fromRGB(r, g, b).toHex()).toBe(c.hexOut)
 	})
 })
 
 it('can convert HEX to an RGB array', () => {
-	tests.forEach((color) => {
-		expect(Color.fromHex(color.hexIn).toRGB()).toEqual(color.rgb)
+	tests.forEach((c) => {
+		expect(Color.fromHex(c.hexIn).toRGB()).toEqual(c.rgb)
 	})
 })
 
 it('can convert HEX to an RGB string', () => {
-	tests.forEach((color) => {
-		expect(Color.fromHex(color.hexIn).toRGBString()).toEqual(color.rgb.join(', '))
+	tests.forEach((c) => {
+		expect(Color.fromHex(c.hexIn).toRGBString()).toEqual(c.rgb.join(', '))
 	})
 })
 
 it('can convert HEX to an HSL array', () => {
-	tests.forEach((color) => {
-		expect(Color.fromHex(color.hexIn).toHSL()).toEqual(color.hsl)
+	tests.forEach((c) => {
+		expect(Color.fromHex(c.hexIn).toHSL()).toEqual(c.hsl)
 	})
 })
 
 it('can convert HEX to an HSL string', () => {
-	tests.forEach((color) => {
-		expect(Color.fromHex(color.hexIn).toHSLString()).toEqual(
-			`${color.hsl[0]}, ${color.hsl[1]}%, ${color.hsl[2]}%`
+	tests.forEach((c) => {
+		expect(Color.fromHex(c.hexIn).toHSLString()).toEqual(
+			`${c.hsl[0]}, ${c.hsl[1]}%, ${c.hsl[2]}%`
 		)
 	})
 })

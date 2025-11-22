@@ -45,25 +45,25 @@ it('get the interval 5 for 1 * 2', () => {
 
 // fill blanks
 it('fills single gaps', () => {
-	let input: Array<number | null> = [null, 1, null];
-	let result = NumberFill.fillBlanks(input);
+	const input: Array<number | null> = [null, 1, null];
+	const result = NumberFill.fillBlanks(input);
 	expect(result).toEqual([0, 1, 2]);
 });
 
 it('fills multiple gaps correctly with null ends', () => {
-	let input = [null, null, 2, null, null];
-	let result = NumberFill.fillBlanks(input);
+	const input = [null, null, 2, null, null];
+	const result = NumberFill.fillBlanks(input);
 	expect(result).toEqual([0, 1, 2, 3, 4]);
 });
 
 it('fills multiple gaps correctly with populated ends', () => {
-	let input = [1, null, null, null, 5, null, null, 8];
-	let result = NumberFill.fillBlanks(input);
+	const input = [1, null, null, null, 5, null, null, 8];
+	const result = NumberFill.fillBlanks(input);
 	expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
 });
 
 it('fills fractional gaps correctly', () => {
-	let input = [1, null, 2, null, 3];
-	let result = NumberFill.fillBlanks(input);
+	const input = [1, null, 2, null, 3];
+	const result = NumberFill.fillBlanks(input);
 	expect(result).toEqual([1, 1.5, 2, 2.5, 3]);
 });

@@ -2,39 +2,40 @@ import React, { useState } from 'react'
 import Color from './Color'
 import Editable from './Editable'
 import { Remove } from './Icons'
-import '../styles/ColorGroup.scss'
-import { ColorObject } from './ColorContext'
+import { type ColorContextInterface } from './ColorContext'
+import type { ColorDefinition } from '~/lib/color'
+import '~/css/ColorGroup.css'
+
 
 export interface ColorGroupProps {
 	name: string
 	id: string
-	key: string
-	colors: Array<ColorObject>
-	context: any
+	colors: Array<ColorDefinition>
+	context: ColorContextInterface
 }
 
-const ColorGroup = (props: ColorGroupProps) => {
+const ColorGroup = ({ name, id, colors, context }: ColorGroupProps) => {
 	const [rangeColors, setRangeColors] = useState({ dark: '#222', light: '#666' })
 
-	const handleRename = (newValue: string) => props.context.renameGroup(props.id, newValue)
+	const handleRename = (newValue: string) => context.renameGroup(id, newValue)
 
 	function handleColorChange(name: string, newColor: string) {
-		props.context.updateColor(props.id, name, newColor)
+		context.updateColor(id, name, newColor)
 	}
 
 	function handleColorChangeMode(name: string, checked: boolean) {
-		props.context.updateMode(props.id, name, checked)
+		context.updateMode(id, name, checked)
 	}
 
 	function handleUpdateRange(e: React.ChangeEvent<HTMLInputElement>) {
-		props.context.updateRange(props.id, parseInt(e.target.value))
+		context.updateRange(id, parseInt(e.target.value))
 		updateRangeColors(e.target.value)
 	}
 
 	function updateRangeColors(rangeValue: string) {
-		let colorsOne = ['111', '121212', '202020', '222', '262626', '282828', '333']
-		let colorsTwo = ['bbb', '999', '888', '777', '666', '555', '444']
-		let index = parseInt(rangeValue)
+		const colorsOne = ['111', '121212', '202020', '222', '262626', '282828', '333']
+		const colorsTwo = ['bbb', '999', '888', '777', '666', '555', '444']
+		const index = parseInt(rangeValue)
 		setRangeColors({
 			dark: `#${colorsOne[index]}`,
 			light: `#${colorsTwo[index]}`,
@@ -47,7 +48,7 @@ const ColorGroup = (props: ColorGroupProps) => {
 		backgroundColor: string
 	}
 
-	let rangeStyle: CSSCustomProperties = {
+	const rangeStyle: CSSCustomProperties = {
 		backgroundColor: rangeColors.dark,
 		'--colorOne': rangeColors.dark,
 		'--colorTwo': rangeColors.light,
@@ -56,13 +57,13 @@ const ColorGroup = (props: ColorGroupProps) => {
 	return (
 		<div className="ColorGroup">
 			<h2 className="ColorGroup-title">
-				<Editable onChange={handleRename} initialValue={props.name} />
+				<Editable onChange={handleRename} initialValue={name} />
 			</h2>
 			<div className="ColorGroup-colors">
-				{props.colors.map((color: ColorObject, i: number) => (
+				{colors.map((color: ColorDefinition, i: number) => (
 					<Color
 						key={color.suffix + i}
-						group={props.name}
+						group={name}
 						color={color}
 						pos={i}
 						onChange={handleColorChange}
@@ -87,7 +88,7 @@ const ColorGroup = (props: ColorGroupProps) => {
 			<button
 				className="ColorGroup-remove"
 				title="Remove Hue"
-				onClick={() => props.context.removeGroup(props.id)}
+				onClick={() => context.removeGroup(id)}
 			>
 				<Remove />
 			</button>

@@ -1,5 +1,5 @@
 import NumberFill from './NumberFill'
-import Color from './Color'
+import color from './color'
 
 export interface ColorBlendInterface {
 	asHex(): Array<string>
@@ -12,7 +12,7 @@ export const colorsBetween = (
 	toColor: string,
 	steps: number
 ): ColorBlendInterface => {
-	let colors = rawColorsBetween(fromColor, toColor, steps)
+	const colors = rawColorsBetween(fromColor, toColor, steps)
 
 	return {
 		asHex: () => colors.map((c) => c.toHex()),
@@ -26,14 +26,14 @@ export const gradientFrom = (
 	steps: number,
 	limit?: number
 ): ColorBlendInterface => {
-	let lights = rawColorsBetween(baseColor, 'fff', steps).reverse().slice(1, -1)
-	let darks = rawColorsBetween(baseColor, '000', steps).slice(0, -1)
+	const lights = rawColorsBetween(baseColor, 'fff', steps).reverse().slice(1, -1)
+	const darks = rawColorsBetween(baseColor, '000', steps).slice(0, -1)
 	let colors = lights.concat(darks)
 
 	if (limit) {
 		limit = Math.max(limit, 3)
 		limit = Math.min(colors.length, limit)
-		let trimLength = Math.floor((colors.length - limit) / 2)
+		const trimLength = Math.floor((colors.length - limit) / 2)
 		colors = colors.slice(trimLength, colors.length - trimLength)
 	}
 
@@ -44,36 +44,36 @@ export const gradientFrom = (
 	}
 }
 
-export const lighten = (baseColor: string, steps: number): Color => {
+export const lighten = (baseColor: string, steps: number): color => {
 	const colors = rawColorsBetween(baseColor, 'fff', steps)
 	return colors[1]
 }
 
-export const darken = (baseColor: string, steps: number): Color => {
+export const darken = (baseColor: string, steps: number): color => {
 	const colors = rawColorsBetween(baseColor, '000', steps)
 	return colors[1]
 }
 
-export const rawColorsBetween = (fromColor: string, toColor: string, steps: number): Color[] => {
-	let fromRGB: number[] = Color.fromHex(fromColor).toRGB()
-	let toRGB: number[] = Color.fromHex(toColor).toRGB()
+export const rawColorsBetween = (fromColor: string, toColor: string, steps: number): color[] => {
+	const fromRGB: number[] = color.fromHex(fromColor).toRGB()
+	const toRGB: number[] = color.fromHex(toColor).toRGB()
 
-	let reds: number[] = NumberFill.numbersBetweenInclusive(fromRGB[0], toRGB[0], steps).map((c) =>
+	const reds: number[] = NumberFill.numbersBetweenInclusive(fromRGB[0], toRGB[0], steps).map((c) =>
 		Math.floor(c)
 	)
 
-	let greens: number[] = NumberFill.numbersBetweenInclusive(fromRGB[1], toRGB[1], steps).map((c) =>
+	const greens: number[] = NumberFill.numbersBetweenInclusive(fromRGB[1], toRGB[1], steps).map((c) =>
 		Math.floor(c)
 	)
 
-	let blues: number[] = NumberFill.numbersBetweenInclusive(fromRGB[2], toRGB[2], steps).map((c) =>
+	const blues: number[] = NumberFill.numbersBetweenInclusive(fromRGB[2], toRGB[2], steps).map((c) =>
 		Math.floor(c)
 	)
 
-	let colors: Array<Color> = []
+	const colors: Array<color> = []
 	for (let i = 0; i < steps + 2; i++) {
-		let color: Color = Color.fromRGB(reds[i], greens[i], blues[i])
-		colors.push(color)
+		const colorInstance: color = color.fromRGB(reds[i], greens[i], blues[i])
+		colors.push(colorInstance)
 	}
 
 	return colors

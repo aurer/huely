@@ -1,29 +1,39 @@
 # Tailor colors
 
-A tool to help generate color schemes for use with the Tailor CSS framework.
 
-## Development
+A tool to help generate color schemes. 
+Build with React and Vite
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[https://huely.dev/](https://huely.dev/)
+
 
 ### Scripts
 
-#### `yarn start`
+#### `npm run dev`
 
 Runs the app in development mode
 
-#### `yarn build`
+#### `npm run test`
 
-Builds a production version of the app into the 'build' directory.
+Runs all tests
 
-#### `yarn test`
+#### `npm run test:watch`
 
 Launches the test runner in the interactive watch mode.
 
-#### `yarn deploy`
+#### `npm run build`
 
-Builds a production version of the app and deploys the build folder to the gh-pages branch on github.
+Builds a production version of the app into the 'build' directory.
 
-## Deployment
+#### `npm run preview`
 
-This project uses the gh-pages module to deploy to Github Pages. Running `yarn deploy` will build the project and deploy the build folder to the gh-pages branch on github
+Launches the app in production preview mode from the build
+
+#### `npm run lint`
+
+Lints the project using ESLint
+
+#### `npm run lint:fix`
+
+Attempts to automatically resolve linting issues
+

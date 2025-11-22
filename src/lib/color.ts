@@ -1,17 +1,17 @@
 import { cleanHex } from './Utilities'
 
-export default class Color {
+export default class color {
 	red: number
 	green: number
 	blue: number
 
-	static fromHex(hex: string): Color {
-		let rgb: Array<number> = this._hexToRgb(hex)
-		return new Color(rgb[0], rgb[1], rgb[2])
+	static fromHex(hex: string): color {
+		const rgb: Array<number> = this._hexToRgb(hex)
+		return new color(rgb[0], rgb[1], rgb[2])
 	}
 
-	static fromRGB(r: number, g: number, b: number): Color {
-		return new Color(r, g, b)
+	static fromRGB(r: number, g: number, b: number): color {
+		return new color(r, g, b)
 	}
 
 	constructor(r: number, g: number, b: number) {
@@ -22,7 +22,7 @@ export default class Color {
 	}
 
 	toHex(): string {
-		return Color._rgbToHex(this.red, this.green, this.blue)
+		return color._rgbToHex(this.red, this.green, this.blue)
 	}
 
 	toRGB(): Array<number> {
@@ -30,16 +30,16 @@ export default class Color {
 	}
 
 	toRGBString(): string {
-		let [r, g, b] = [this.red, this.green, this.blue]
+		const [r, g, b] = [this.red, this.green, this.blue]
 		return `${r}, ${g}, ${b}`
 	}
 
 	toHSL(): Array<number> {
-		return Color._rgbToHSL(this.red, this.green, this.blue)
+		return color._rgbToHSL(this.red, this.green, this.blue)
 	}
 
 	toHSLString(): string {
-		let [h, s, l] = Color._rgbToHSL(this.red, this.green, this.blue)
+		const [h, s, l] = color._rgbToHSL(this.red, this.green, this.blue)
 		return `${h}, ${s}%, ${l}%`
 	}
 
@@ -60,8 +60,8 @@ export default class Color {
 	}
 
 	static _calculateHue(r: number, g: number, b: number): number {
-		let min: number = Math.min(r, g, b)
-		let max: number = Math.max(r, g, b)
+		const min: number = Math.min(r, g, b)
+		const max: number = Math.max(r, g, b)
 
 		if (min === max) {
 			return 0
@@ -86,16 +86,16 @@ export default class Color {
 
 	static _hexToRgb(hex: string): number[] {
 		hex = cleanHex(hex.replace('#', ''))
-		let r = parseInt(hex.substring(0, 2), 16)
-		let g = parseInt(hex.substring(2, 4), 16)
-		let b = parseInt(hex.substring(4, 6), 16)
+		const r = parseInt(hex.substring(0, 2), 16)
+		const g = parseInt(hex.substring(2, 4), 16)
+		const b = parseInt(hex.substring(4, 6), 16)
 		return [r, g, b]
 	}
 
 	static _rgbToHex(r: number, g: number, b: number): string {
-		let red = r.toString(16).toUpperCase()
-		let green = g.toString(16).toUpperCase()
-		let blue = b.toString(16).toUpperCase()
+		const red = r.toString(16).toUpperCase()
+		const green = g.toString(16).toUpperCase()
+		const blue = b.toString(16).toUpperCase()
 		return red.padStart(2, '0') + green.padStart(2, '0') + blue.padStart(2, '0')
 	}
 
@@ -103,11 +103,17 @@ export default class Color {
 		r /= 255
 		g /= 255
 		b /= 255
-		let min: number = Math.min(r, g, b)
-		let max: number = Math.max(r, g, b)
-		let luminance: number = (max + min) / 2
-		let saturation: number = Color._calculateSaturation(luminance, min, max)
-		let hue: number = Color._calculateHue(r, g, b)
+		const min: number = Math.min(r, g, b)
+		const max: number = Math.max(r, g, b)
+		const luminance: number = (max + min) / 2
+		const saturation: number = color._calculateSaturation(luminance, min, max)
+		const hue: number = color._calculateHue(r, g, b)
 		return [hue, saturation, Math.round(luminance * 100)]
 	}
+}
+
+export interface ColorDefinition {
+	suffix: string
+	value: string
+	auto: boolean
 }

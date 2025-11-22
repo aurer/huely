@@ -1,0 +1,24 @@
+.Editable {
+	display: inline-block;
+	padding: 1em;
+
+}
+
+.Editable-input {
+	display: inline-block;
+}
+
+.Editable-button {
+	
+	background: transparent;
+	border: none;
+	width: 12px;
+	height: 12px;
+	margin: 0 0.3em;
+	vertical-align: top;
+	cursor: pointer;
+
+	&:hover path {
+		fill: var(--color-primary-light);
+	}
+}

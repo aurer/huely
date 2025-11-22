@@ -1,23 +1,23 @@
-import React, { useState, useRef, RefObject } from 'react'
+import { useState, useRef, type RefObject } from 'react'
 import { Edit } from './Icons'
-import { KeyboardEvent } from 'react'
-import '../styles/Editable.scss'
+import { type KeyboardEvent } from 'react'
+import '~/css/Editable.css'
 
 export interface EditableProps {
-	initialValue: any
-	onChange(newValue: String): void
+	initialValue: string
+	onChange(newValue: string): void
 }
 
 const Editable = ({ initialValue, onChange }: EditableProps) => {
-	const [previosValue, setPreviosValue] = useState(initialValue)
-	const editableInput: RefObject<HTMLElement> = useRef(null)
+	const [previousValue, setPreviousValue] = useState(initialValue)
+	const editableInput: RefObject<HTMLElement | null> = useRef(null)
 
 	const enableEditing = () => {
-		let input = editableInput.current
+		const input = editableInput.current
 		if (input) {
 			input.setAttribute('contenteditable', '')
 			input.focus()
-			setPreviosValue(input.innerText)
+			setPreviousValue(input.innerText)
 			setContent(input.innerText)
 
 			// Select the element
@@ -30,7 +30,7 @@ const Editable = ({ initialValue, onChange }: EditableProps) => {
 	}
 
 	const disableEditing = () => {
-		let input = editableInput.current
+		const input = editableInput.current
 		if (input) {
 			input.removeAttribute('contenteditable')
 		}
@@ -49,12 +49,12 @@ const Editable = ({ initialValue, onChange }: EditableProps) => {
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
 			disableEditing()
-			setContent(previosValue)
+			setContent(previousValue)
 		}
 
 		if (e.key === 'Enter') {
 			if (editableInput.current) {
-				setPreviosValue(editableInput.current.innerText)
+				setPreviousValue(editableInput.current.innerText)
 				setContent(editableInput.current.innerText)
 				onChange(editableInput.current.innerText)
 				disableEditing()
@@ -73,7 +73,7 @@ const Editable = ({ initialValue, onChange }: EditableProps) => {
 			>
 				{initialValue}
 			</span>
-			<button className="Editable-button" onClick={enableEditing}>
+			<button className="Editable-button" onClick={enableEditing} title={`Edit this color`}>
 				<Edit />
 			</button>
 		</div>

@@ -1,6 +1,6 @@
 import React from 'react'
-import { ColorContext, ColorContextInterface } from './ColorContext'
-import ColorSet from '../lib/ColorSet'
+import { ColorContext, type ColorContextInterface } from './ColorContext'
+import colorSet from '../lib/colorSet'
 import ColorGroup from './ColorGroup'
 import { Add } from './Icons'
 
@@ -9,7 +9,7 @@ const ColorGroups = () => {
 		<ColorContext.Consumer>
 			{(context: ColorContextInterface) => (
 				<React.Fragment>
-					{context.groups.map((group: ColorSet) => (
+					{context.groups.map((group: colorSet) => (
 						<ColorGroup
 							name={group.name}
 							id={group.id}

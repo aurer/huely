@@ -1,17 +1,17 @@
-import { colorsBetween, gradientFrom, lighten, darken } from '../lib/ColorBlend'
+import { colorsBetween, gradientFrom, lighten, darken } from '../lib/colorBlend'
 
 it('can blend two colors with one step as hex', () => {
-	let colors = colorsBetween('#0380D2', '#FFFFFF', 1).asHex()
+	const colors = colorsBetween('#0380D2', '#FFFFFF', 1).asHex()
 	expect(colors).toEqual(['0380D2', '81BFE8', 'FFFFFF'])
 })
 
 it('can blend two colors with three steps as hex', () => {
-	let colors = colorsBetween('#0380D2', '#FFFFFF', 3).asHex()
+	const colors = colorsBetween('#0380D2', '#FFFFFF', 3).asHex()
 	expect(colors).toEqual(['0380D2', '429FDD', '81BFE8', 'C0DFF3', 'FFFFFF'])
 })
 
 it('can blend two colors with six steps as hex', () => {
-	let colors = colorsBetween('#07e3f2', '#155994', 6).asHex()
+	const colors = colorsBetween('#07e3f2', '#155994', 6).asHex()
 	expect(colors).toEqual([
 		'07E3F2',
 		'09CFE4',
@@ -25,17 +25,17 @@ it('can blend two colors with six steps as hex', () => {
 })
 
 it('can blend one color with three steps as hex', () => {
-	let colors = colorsBetween('#FFF', '#FFF', 3).asHex()
+	const colors = colorsBetween('#FFF', '#FFF', 3).asHex()
 	expect(colors).toEqual(['FFFFFF', 'FFFFFF', 'FFFFFF', 'FFFFFF', 'FFFFFF'])
 })
 
 it('can blend black to white as hex', () => {
-	let colors = colorsBetween('#000', '#FFF', 1).asHex()
+	const colors = colorsBetween('#000', '#FFF', 1).asHex()
 	expect(colors).toEqual(['000000', '7F7F7F', 'FFFFFF'])
 })
 
 it('can blend two colors with one step as RGB', () => {
-	let colors = colorsBetween('#0380D2', '#FFFFFF', 1).asRGB()
+	const colors = colorsBetween('#0380D2', '#FFFFFF', 1).asRGB()
 	expect(colors).toEqual([
 		[3, 128, 210],
 		[129, 191, 232],
@@ -44,7 +44,7 @@ it('can blend two colors with one step as RGB', () => {
 })
 
 it('can blend black to white as RGB', () => {
-	let colors = colorsBetween('#000', '#FFF', 1).asRGB()
+	const colors = colorsBetween('#000', '#FFF', 1).asRGB()
 	expect(colors).toEqual([
 		[0, 0, 0],
 		[127, 127, 127],
@@ -53,7 +53,7 @@ it('can blend black to white as RGB', () => {
 })
 
 it('can blend two colors with one step as HSL', () => {
-	let colors = colorsBetween('#0380D2', '#FFFFFF', 1).asHSL()
+	const colors = colorsBetween('#0380D2', '#FFFFFF', 1).asHSL()
 	expect(colors).toEqual([
 		[204, 97, 42],
 		[204, 69, 71],
@@ -62,7 +62,7 @@ it('can blend two colors with one step as HSL', () => {
 })
 
 it('can blend black to white as HSL', () => {
-	let colors = colorsBetween('#000', '#FFF', 1).asHSL()
+	const colors = colorsBetween('#000', '#FFF', 1).asHSL()
 	expect(colors).toEqual([
 		[0, 0, 0],
 		[0, 0, 50],
@@ -71,17 +71,17 @@ it('can blend black to white as HSL', () => {
 })
 
 it('can generate lights and darks from a base color with 1 steps', () => {
-	let colors = gradientFrom('#0380D2', 1).asHex()
+	const colors = gradientFrom('#0380D2', 1).asHex()
 	expect(colors).toEqual(['81BFE8', '0380D2', '014069'])
 })
 
 it('can generate lights and darks from a base color with 2 steps', () => {
-	let colors = gradientFrom('#0380D2', 2).asHex()
+	const colors = gradientFrom('#0380D2', 2).asHex()
 	expect(colors).toEqual(['ABD4F0', '57AAE1', '0380D2', '02558C', '012A46'])
 })
 
 it('can generate lights and darks from a base color with 4 steps', () => {
-	let colors = gradientFrom('#0380D2', 4).asHex()
+	const colors = gradientFrom('#0380D2', 4).asHex()
 	expect(colors).toEqual([
 		'CCE5F6',
 		'9ACCED',
@@ -96,7 +96,7 @@ it('can generate lights and darks from a base color with 4 steps', () => {
 })
 
 it('can generate lights and darks from a base color with 6 steps', () => {
-	let colors = gradientFrom('#0380D2', 6).asHex()
+	const colors = gradientFrom('#0380D2', 6).asHex()
 	expect(colors).toEqual([
 		'DBECF8',
 		'B7DAF2',
@@ -183,41 +183,41 @@ it('generateGradient limit cant be greater than the total', () => {
 })
 
 it('can lighten a color with 1 step', () => {
-	let color = lighten('57ABE1', 1).toHex()
+	const color = lighten('57ABE1', 1).toHex()
 	expect(color).toBe('ABD5F0')
 })
 
 it('can lighten a color with 2 steps', () => {
-	let color = lighten('0380D2', 2).toHex()
+	const color = lighten('0380D2', 2).toHex()
 	expect(color).toBe('57AAE1')
 })
 
 it('can lighten a color with 4 steps', () => {
-	let color = lighten('0380D2', 4).toHex()
+	const color = lighten('0380D2', 4).toHex()
 	expect(color).toBe('3599DB')
 })
 
 it('can lighten a color with 7 steps', () => {
-	let color = lighten('0380D2', 7).toHex()
+	const color = lighten('0380D2', 7).toHex()
 	expect(color).toBe('228FD7')
 })
 
 it('can darken a color with 1 step', () => {
-	let color = darken('02558C', 1).toHex()
+	const color = darken('02558C', 1).toHex()
 	expect(color).toBe('012A46')
 })
 
 it('can darken a color with 2 steps', () => {
-	let color = darken('0380D2', 2).toHex()
+	const color = darken('0380D2', 2).toHex()
 	expect(color).toBe('02558C')
 })
 
 it('can darken a color with 4 steps', () => {
-	let color = darken('0380D2', 4).toHex()
+	const color = darken('0380D2', 4).toHex()
 	expect(color).toBe('0266A8')
 })
 
 it('can darken a color with 7 steps', () => {
-	let color = darken('0380D2', 7).toHex()
+	const color = darken('0380D2', 7).toHex()
 	expect(color).toBe('0270B7')
 })

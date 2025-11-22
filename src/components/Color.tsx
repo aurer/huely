@@ -1,63 +1,59 @@
-import React, { ChangeEvent, CSSProperties } from 'react'
-import { nameWithSuffix, cleanHex } from '../lib/Utilities'
-import '../styles/Color.scss'
-import { ColorObject } from './ColorContext'
+import { type ChangeEvent, type CSSProperties, type ClipboardEvent, useMemo, type PropsWithChildren } from 'react'
+import { nameWithSuffix, cleanHex, sanitiseHexColor } from '~/lib/Utilities'
+import { type ColorDefinition } from '~/lib/color'
 import { Undo } from './Icons'
+import '~/css/Color.css'
 
-export interface ColorProps {
-	children: React.ReactNode
-	key: string
+export interface ColorProps extends PropsWithChildren {
+	color: ColorDefinition
 	group: string
-	color: ColorObject
 	pos: number
 	onChange(name: string, newColor: string): void
 	onChangeMode(name: string, checked: boolean): void
 }
 
-const Color = (props: ColorProps) => {
-	function handleColorInputChange(e: ChangeEvent<HTMLInputElement>) {
-		let value = sanitiseHexColor(e.target.value)
-		props.onChange(props.color.suffix, value)
+const Color = ({ color, group, pos, onChange, onChangeMode, children }: ColorProps) => {
+	const handleColorInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = sanitiseHexColor(e.target.value)
+		onChange(color.suffix, value)
 	}
 
-	function handleColorInputPaste(e: any) {
+	const handleColorInputPaste = (e: ClipboardEvent) => {
 		const data = e.clipboardData.getData('text')
 		if (data.length) {
 			e.stopPropagation()
 			e.preventDefault()
-			let value = cleanHex(data)
-			props.onChange(props.color.suffix, value)
+			const value = cleanHex(data)
+			onChange(color.suffix, value)
 		}
 	}
 
-	function handleUnlock(): void {
-		props.onChangeMode(props.color.suffix, !props.color.auto)
+	const handleUnlock = (): void => {
+		onChangeMode(color.suffix, !color.auto)
 	}
 
-	function sanitiseHexColor(color: string) {
-		return color.replace('#', '').slice(0, 6)
-	}
+	const name: string = nameWithSuffix(group, color.suffix)
+	const hexColor: string = '#' + cleanHex(sanitiseHexColor(color.value))
+	const style: CSSProperties = { backgroundColor: hexColor }
+	const auto: boolean = color.auto
+	const master: boolean = pos === 2
+	const className = useMemo(() => {
+		const classes = ['Color']
+		if (pos === 2) {
+			classes.push('Color--master')
+		}
 
-	let name: string = nameWithSuffix(props.group, props.color.suffix)
-	let color: string = '#' + cleanHex(sanitiseHexColor(props.color.value))
-	let style: CSSProperties = { backgroundColor: color }
-	let className: string = 'Color'
-	let master: boolean = false
-	let auto: boolean = props.color.auto
+		if (color.auto) {
+			classes.push('Color--auto')
+		}
 
-	if (props.pos === 2) {
-		master = true
-		className += ' Color--master'
-	}
-
-	if (props.color.auto) {
-		className += ' Color--auto'
-	}
+		return classes.join(' ');
+	}, [pos, color.auto]);
 
 	return (
 		<div className={className}>
 			<div className="Color-swatch">
-				<input type="color" name={name} id={name} value={color} onChange={handleColorInputChange} />
+				<input type="color" name={name} id={name} value={hexColor} onChange={handleColorInputChange} />
 				<label htmlFor={name} style={style}>
 					<span>{name}</span>
 				</label>
@@ -65,8 +61,9 @@ const Color = (props: ColorProps) => {
 			<div className="Color-settings">
 				<div className="Color-format">#</div>
 				<input
+					aria-label='Color value'
 					type="text"
-					value={props.color.value}
+					value={color.value}
 					onChange={handleColorInputChange}
 					onPaste={handleColorInputPaste}
 				/>
@@ -75,7 +72,7 @@ const Color = (props: ColorProps) => {
 						<Undo />
 					</button>
 				)}
-				{props.children}
+				{children}
 			</div>
 		</div>
 	)

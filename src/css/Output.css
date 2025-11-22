@@ -1,0 +1,72 @@
+.Output {
+	font-size: 0.85rem;
+}
+
+.Output-title {
+	margin: var(--space-sm) 0 0;
+	padding: 0.5rem var(--space);
+	letter-spacing: 0.1em;
+	font-size: 0.85em;
+	text-transform: uppercase;
+}
+
+.Output-options {
+	display: flex;
+	flex-direction: row;
+	padding: 0.5rem var(--space);
+
+	button {
+		display: inline-block;
+		flex: 1;
+		text-align: center;
+		padding: var(--space-xs) var(--space-sm);
+		background-color: var(--color-neutral-light);
+		color: #fff;
+		text-transform: uppercase;
+		border: none;
+		cursor: pointer;
+		transition: background-color 0.2s;
+		outline: none;
+		border: 1px solid var(--color-neutral-darker);
+		border-left: none;
+		border-radius: 0;
+
+		&:first-child {
+			border-radius: 4px 0 0 4px;
+			border-left: 1px solid var(--color-neutral-darker);
+		}
+		
+		&:last-child {
+			border-radius: 0 4px 4px 0;
+		}
+
+		&:hover,
+		&:focus {
+			background-color: var(--color-neutral);
+		}
+
+		&.is-active {
+			background-color: var(--color-primary);
+		}
+	}
+}
+
+.Output-code {
+	padding: var(--space);
+
+	pre {
+		font-family: 'Fira Code', monospace;
+		margin: 0;
+		line-height: 1.6;
+		overflow: auto;
+		font-size: 0.9em;
+	}
+
+	.prefix {
+		color: var(--color-primary-lighter);
+	}
+
+	.comment {
+		color: var(--color-neutral-lighter);
+	}
+}
