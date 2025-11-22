@@ -9,12 +9,20 @@ const App = () => {
 		<ErrorBoundary>
 			<ColorProvider>
 				<div className="App">
-					<div className="App-main">
-						<ColorGroups />
-					</div>
-					<div className="App-menu">
-						<Menu />
-					</div>
+					<main className="App-main">
+						<div>
+							<ColorGroups />
+						</div>
+						<aside className="App-menu">
+							<Menu />
+						</aside>
+					</main>
+					<footer className="App-footer">
+						<p>© Phil Maurer 2025</p>
+						<a href="https://github.com/aurer/huely" title="View on GitHub" target="_blank" rel="noreferrer">
+							<img src="/github-mark-white.svg" alt="Github Logo" width={22} height={22} />
+						</a>
+					</footer>
 				</div>
 			</ColorProvider>
 		</ErrorBoundary>
