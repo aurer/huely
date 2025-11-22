@@ -1,0 +1,39 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Fira Code', sans-serif;
+	background-color: var(--color-neutral-dark);
+	color: #fff;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+::selection {
+	background-color: var(--color-primary-light);
+	color: #fff;
+}
+
+.App {
+	display: grid;
+	grid-template-columns: auto 20rem;
+	height: 100vh;
+
+	@media screen and (max-width: 850px) {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.App-menu {
+		background-color: rgba(#fff, 0.02);
+		border-left: 1px solid var(--color-neutral-light);
+		color: #fff;
+		z-index: 2;
+		
+		@media screen and (max-width: 850px) {
+			border: none;
+			border-bottom: 1px solid var(--color-neutral-light);
+		}
+	}
+}

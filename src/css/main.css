@@ -1,0 +1,115 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --space: 1.5rem;
+  --space-xxs: calc(var(--space) / 6);
+  --space-xs: calc(var(--space) / 4);
+  --space-sm: calc(var(--space) / 2);
+  --space-lg: calc(var(--space) * 2);
+  --space-xl: calc(var(--space) * 4);
+  --space-xxl: calc(var(--space) * 6);
+  
+  /* Neutral */
+  --color-neutral-lighter: hsl(210, 20%, 54%);
+  --color-neutral-light: hsl(210, 16%, 24%);
+  --color-neutral: hsl(210, 15%, 18%);
+  --color-neutral-dark: hsl(210, 17%, 12%);
+  --color-neutral-darker: hsl(210, 18%, 9%);
+  
+  /* Primary */
+  --color-primary-lighter: #55A0D3;
+  --color-primary-light: #2A88C8;
+  --color-primary: #0071bd;
+  --color-primary-dark: #005E9D;
+  --color-primary-darker: #004B7E;
+  --breakpoint: 850px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+		'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: #212426;
+	color: #fff;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+input[type='range'] {
+	--colorOne: #555;
+	--colorTwo: #999;
+	appearance: none;
+	margin: var(--space-xs) 0;
+	width: 100%;
+}
+
+/* Range */
+input[type='range']::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 3px;
+	cursor: pointer;
+	background: var(--color-neutral-darker);
+	border-radius: 2px;
+}
+
+input[type='range']::-moz-range-track {
+	width: 100%;
+	height: 3px;
+	cursor: pointer;
+	background: var(--color-neutral-darker);
+	border-radius: 2px;
+}
+
+/* Thumb */
+input[type='range']::-webkit-slider-thumb {
+	box-shadow: 0 1px 3px var(--color-neutral-darker);
+	border: 1px solid var(--color-neutral-darker);
+	height: 18px;
+	width: 18px;
+	border-radius: 10px;
+	background: var(--color-primary);
+	background: linear-gradient(to left, #555, #555 50%, #999 50%, #999);
+	background: linear-gradient(
+		to left,
+		var(--colorOne),
+		var(--colorOne) 50%,
+		var(--colorTwo) 50%,
+		var(--colorTwo)
+	);
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-top: -8px;
+}
+
+input[type='range']::-moz-range-thumb {
+	box-shadow: 0 1px 3px var(--color-neutral-darker);
+	border: 1px solid var(--color-neutral-darker);
+	height: 18px;
+	width: 18px;
+	border-radius: 10px;
+	background: var(--color-primary);
+	background: linear-gradient(to left, #555, #555 50%, #999 50%, #999);
+	background: linear-gradient(
+		to left,
+		var(--colorOne),
+		var(--colorOne) 50%,
+		var(--colorTwo) 50%,
+		var(--colorTwo)
+	);
+	cursor: pointer;
+	appearance: none;
+	margin-top: -8px;
+}
