@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
-import { ColorContext, type ColorContextInterface } from './ColorContext'
-import colorSet from '~/lib/colorSet'
-import { type ColorDefinition } from '~/lib/color'
-import { nameWithSuffix } from '~/lib/Utilities'
 import '~/css/Output.css'
+import { type ColorDefinition } from '~/lib/color'
+import colorSet from '~/lib/colorSet'
+import { nameWithSuffix } from '~/lib/Utilities'
+import { useColorContext } from './ColorContext'
 
 const OutputTypes = {
-	SASS: 'SASS',
-	LESS: 'LESS',
 	CSS: 'CSS',
+	SASS: 'SASS',
 	JSON: 'JSON',
 }
 
-type OutputType = typeof OutputTypes[keyof typeof OutputTypes]
+type OutputType = (typeof OutputTypes)[keyof typeof OutputTypes]
 
 function Output() {
-	const [outputType, setOutputType] = useState<OutputType>(OutputTypes.SASS)
+	const [outputType, setOutputType] = useState<OutputType>(OutputTypes.CSS)
+	const { groups } = useColorContext()
 
 	const renderJson = (groups: colorSet[]) => {
 		const colorGroups = groups.map((group) => {
@@ -49,50 +49,39 @@ function Output() {
 	}
 
 	const renderVar = (groupName: string, color: ColorDefinition, outputType: OutputType) => {
-		let string
 		const name = nameWithSuffix(groupName, color.suffix)
+		const prefix = outputType === OutputTypes.SASS ? '$' : '--'
 
-		switch (outputType) {
-			case OutputTypes.SASS:
-				string = '$' + name + ': #' + color.value + ';'
-				break
-
-			case OutputTypes.LESS:
-				string = '@' + name + ': #' + color.value + ';'
-				break
-
-			case OutputTypes.CSS:
-			default:
-				string = '--' + name + ': #' + color.value + ';'
-				break
-		}
-
-		return <div key={name}>{string}</div>
+		return (
+			<div key={name}>
+				<span className="prefix">
+					{prefix}
+					{name}:
+				</span>{' '}
+				<span className="value">#{color.value};</span>
+			</div>
+		)
 	}
 
 	return (
-		<ColorContext.Consumer>
-			{(context: ColorContextInterface) => (
-				<div className="Output">
-					<div className="Output-options">
-						{Object.values(OutputTypes).map((lang: OutputType) => (
-							<button
-								key={lang}
-								className={lang === outputType ? 'is-active' : ''}
-								onClick={setOutputType.bind(null, lang)}
-							>
-								{lang}
-							</button>
-						))}
-					</div>
-					<div className="Output-code">
-						{outputType !== OutputTypes.JSON &&
-							context.groups.map((group) => renderVars(group, outputType))}
-						{outputType === OutputTypes.JSON && renderJson(context.groups)}
-					</div>
-				</div>
-			)}
-		</ColorContext.Consumer>
+		<div className="Output">
+			<h2 className="Output-title">Export</h2>
+			<div className="Output-options">
+				{Object.values(OutputTypes).map((lang: OutputType) => (
+					<button
+						key={lang}
+						className={lang === outputType ? 'is-active' : ''}
+						onClick={setOutputType.bind(null, lang)}
+					>
+						{lang}
+					</button>
+				))}
+			</div>
+			<div className="Output-code">
+				{outputType !== OutputTypes.JSON && groups.map((group) => renderVars(group, outputType))}
+				{outputType === OutputTypes.JSON && renderJson(groups)}
+			</div>
+		</div>
 	)
 }
 

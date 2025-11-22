@@ -1,3 +1,15 @@
+.Output {
+	font-size: 0.85rem;
+}
+
+.Output-title {
+	margin: var(--space-sm) 0 0;
+	padding: 0.5rem var(--space);
+	letter-spacing: 0.1em;
+	font-size: 0.85em;
+	text-transform: uppercase;
+}
+
 .Output-options {
 	display: flex;
 	flex-direction: row;
@@ -48,6 +60,10 @@
 		line-height: 1.6;
 		overflow: auto;
 		font-size: 0.9em;
+	}
+
+	.prefix {
+		color: var(--color-primary-lighter);
 	}
 
 	.comment {

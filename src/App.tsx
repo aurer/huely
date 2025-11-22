@@ -1,7 +1,7 @@
 import { ErrorBoundary } from '@sentry/react'
 import ColorGroups from './components/ColorGroups'
 import { ColorProvider } from './components/ColorProvider'
-import Menu from './components/Menu'
+import Output from './components/Output'
 import '~/css/App.css'
 
 const App = () => {
@@ -13,8 +13,8 @@ const App = () => {
 						<div>
 							<ColorGroups />
 						</div>
-						<aside className="App-menu">
-							<Menu />
+						<aside className="App-export">
+							<Output />
 						</aside>
 					</main>
 					<footer className="App-footer">
